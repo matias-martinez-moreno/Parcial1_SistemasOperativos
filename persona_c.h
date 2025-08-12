@@ -5,7 +5,7 @@
 // Se usa para la comparación de eficiencia, aunque el programa principal usará la clase C++.
 typedef struct {
     char nombreCompleto[150];
-    char fechaNacimiento[11]; // "YYYY-MM-DD" + '\0'
+    char fechaNacimiento[11]; 
     char ciudadResidencia[50];
     long long patrimonio;
     long long deudas;

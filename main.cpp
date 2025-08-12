@@ -1,6 +1,6 @@
-#include <iostream>
 #include <vector>
 #include <map>
+#include <iostream>
 #include <iomanip>
 #include "procesador_datos.h"
 #include "analizador_datos.h"
@@ -24,10 +24,11 @@ void imprimirResultadosPorGrupo(const std::string& titulo, const std::map<char, 
 }
 
 int main() {
-    std::cout << "--- INICIO DEL PROCESAMIENTO DEL PARCIAL ---" << std::endl;
+    std::cout << "--- PARCIAL 1 SISTEMAS OPERATIVOS ---" << std::endl;
+    std::cout << "SOFIA GALLO, JUAN MANUEL GALLO, MATIAS MARTINEZ" << std::endl;
     long ram_inicial = getUsoRAM();
     std::cout << "Uso de RAM inicial: " << ram_inicial << " KB" << std::endl;
-
+    //archivo csv que contiene todos los registros de las personas
     const std::string nombreArchivo = "datos.csv";
 
     std::cout << "\n[Paso 1: Cargando datos desde " << nombreArchivo << "]" << std::endl;
@@ -36,14 +37,15 @@ int main() {
     timer_carga.detener();
 
     if (personas.empty()) {
-        std::cout << "No se cargaron datos. Terminando programa." << std::endl;
+        std::cout << "No se cargaron bien" << std::endl;
         return 1;
     }
     long ram_post_carga = getUsoRAM();
     std::cout << "Se cargaron " << personas.size() << " registros." << std::endl;
+    //mostrar cambios de uso de RAM
     std::cout << "Uso de RAM tras cargar datos: " << ram_post_carga << " KB (Incremento: " << ram_post_carga - ram_inicial << " KB)" << std::endl;
 
-    std::cout << "\n[Paso 2: Realizando Análisis Obligatorios]" << std::endl;
+    std::cout << "\n[Paso 2: Preguntas propuestas del parcial]" << std::endl;
     Temporizador timer_analisis;
 
     // Pregunta 1: Persona más longeva
@@ -65,15 +67,14 @@ int main() {
 
     timer_analisis.detener();
 
-    std::cout << "\n[Paso 3: Realizando Análisis Adicionales]" << std::endl;
+    std::cout << "\n[Paso 3: Preguntas adicionales del grupo]" << std::endl;
     Temporizador timer_adicional;
-    // --- LLAMADA A LAS NUEVAS FUNCIONES ---
     calcularPatrimonioTotalPorGrupo(personas);
     encontrarCiudadesConMasDeclarantes(personas);
     calcularEdadPromedioPorGrupo(personas);
     timer_adicional.detener();
 
-    std::cout << "\n[Paso 4: Comparaciones Técnicas de Rendimiento]" << std::endl;
+    std::cout << "\n[Paso 4: Comparaciones Técnicas del Rendimiento]" << std::endl;
     
     // Comparación Struct vs Class
     std::cout << "\n--- Comparación Struct (C) vs Class (C++) ---" << std::endl;
@@ -83,6 +84,7 @@ int main() {
 
     // Comparación Valores vs Apuntadores (Referencias)
     std::cout << "\n--- Comparación Valores vs. Apuntadores (Referencias) ---" << std::endl;
+    // Mostrar encabezado para la comparación de rendimiento al procesar 5 millones de registros
     const int N_ITERACIONES = 5000000;
     
     Temporizador timer_valor;
@@ -111,7 +113,7 @@ int main() {
         std::cout << "\nConclusión: Pasar por referencia fue " << std::fixed << std::setprecision(2) << mejora << " veces más rápido que por valor." << std::endl;
     }
 
-    std::cout << "\n--- FIN DEL PROCESAMIENTO ---" << std::endl;
+    std::cout << "\n--- FIN DEL PROGRAMA ---" << std::endl;
 
     return 0;
 }

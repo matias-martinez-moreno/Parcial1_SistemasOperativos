@@ -11,7 +11,6 @@ private:
 public:
     Temporizador();
     void detener();
-    // AÑADIR ESTA LÍNEA:
     std::chrono::time_point<std::chrono::high_resolution_clock> getInicio() const { return inicio; }
 };
 

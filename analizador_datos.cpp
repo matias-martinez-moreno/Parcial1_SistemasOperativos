@@ -3,10 +3,10 @@
 #include <limits>
 #include <map>
 #include <algorithm>
-#include <iomanip> // Necesario para std::fixed y std::setprecision
+#include <iomanip> // se usa para std::fixed y std::setprecision
 #include "analizador_datos.h"
 
-// --- Implementación de Funciones Obligatorias (Sin cambios) ---
+// --- implementacion de las funciones obligatorias ---
 
 int calcularEdad(const std::string& fechaNacimiento) {
     if (fechaNacimiento.length() < 4) return 0;
@@ -30,7 +30,6 @@ PersonaCpp encontrarPersonaMasLongeva(const std::vector<PersonaCpp>& personas) {
     }
     return masLongeva;
 }
-
 std::map<std::string, PersonaCpp> encontrarMasLongevaPorCiudad(const std::vector<PersonaCpp>& personas) {
     std::map<std::string, PersonaCpp> masLongevaPorCiudad;
     std::map<std::string, int> maxEdadPorCiudad;
@@ -99,13 +98,10 @@ void contarYValidarPorGrupo(const std::vector<PersonaCpp>& personas) {
     for (auto const& [grupo, cantidad] : conteo) {
         std::cout << "Grupo " << grupo << ": " << cantidad << " personas." << std::endl;
     }
-    std::cout << "Validaciones de grupo incorrectas: " << validacionesIncorrectas << std::endl;
 }
+// --- Implementación de las tres preguntas Adicionales ---
 
-
-// --- Implementación de NUEVAS Preguntas Adicionales ---
-
-// Pregunta Adicional 1: Distribución de Riqueza por Grupo
+// Pregunta 1: Distribución de Riqueza por Grupo
 void calcularPatrimonioTotalPorGrupo(const std::vector<PersonaCpp>& personas) {
     std::map<char, long long> patrimonioPorGrupo;
     for (const auto& p : personas) {
@@ -117,7 +113,7 @@ void calcularPatrimonioTotalPorGrupo(const std::vector<PersonaCpp>& personas) {
     }
 }
 
-// Pregunta Adicional 2: Ciudades con Mayor Cantidad de Declarantes
+// Pregunta 2: Ciudades con Mayor Cantidad de Declarantes
 void encontrarCiudadesConMasDeclarantes(const std::vector<PersonaCpp>& personas) {
     std::map<std::string, int> conteoPorCiudad;
     for (const auto& p : personas) {
@@ -136,7 +132,7 @@ void encontrarCiudadesConMasDeclarantes(const std::vector<PersonaCpp>& personas)
     }
 }
 
-// Pregunta Adicional 3: Análisis de Edad por Grupo
+// Pregunta 3: Análisis de Edad por Grupo
 void calcularEdadPromedioPorGrupo(const std::vector<PersonaCpp>& personas) {
     std::map<char, std::pair<long long, int>> datosEdadPorGrupo; // Suma de edades y conteo
     for (const auto& p : personas) {

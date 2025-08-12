@@ -28,7 +28,6 @@ long getUsoRAM() {
 
 // Función que recibe una copia completa del objeto. Ineficiente.
 void procesarPorValor(PersonaCpp persona) {
-    // Se realiza una operación trivial para evitar que el compilador optimice la llamada
     volatile int doc = persona.documentoIdentidad;
 }
 

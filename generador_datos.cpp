@@ -18,23 +18,22 @@ struct Registro {
 
 // --- Datos base para la generación aleatoria ---
 const std::vector<std::string> NOMBRES = {
-    "Santiago", "Sebastian", "Matias", "Nicolas", "Samuel", "Alejandro", "Mateo", "Diego", "Daniel", "Benjamin",
-    "Juan", "Jose", "David", "Gabriel", "Lucas", "Martin", "Tomas", "Jeronimo", "Emiliano", "Felipe",
+    "Santiago", "Sebastian", "Matias", "Nicolas", "Samuel", "Alejandro", "Mateo", "Diego", "Daniel", "Benjamin","Juan", "Jose", "David", "Gabriel", "Lucas", "Martin", "Tomas", "Jeronimo", "Emiliano", "Felipe","Nestor","Edison",
     "Joaquin", "Emmanuel", "Andres", "Simon", "Maximiliano", "Agustin", "Pablo", "Esteban", "Emilio", "Isaac",
-    "Bruno", "Miguel", "Angel", "Christopher", "Leonardo", "Francisco", "Adrian", "Thiago", "Mario", "Sergio",
-    "Carlos", "Fernando", "Jorge", "Ricardo", "Javier", "Luis", "Pedro", "Antonio", "Manuel", "Victor",
+    "Bruno", "Miguel", "Angel", "Christopher", "Leonardo", "Francisco", "Adrian", "Thiago", "Mario", "Sergio","Carlos", "Fernando",
+     "Jorge", "Ricardo", "Javier", "Luis", "Pedro", "Antonio", "Manuel", "Victor",
     "Sofia", "Valentina", "Isabella", "Mariana", "Luciana", "Camila", "Antonella", "Salome", "Gabriela", "Victoria",
     "Martina", "Samantha", "Valeria", "Julieta", "Emily", "Maria", "Guadalupe", "Ximena", "Regina", "Renata",
     "Mia", "Catalina", "Elena", "Sara", "Ana", "Paula", "Daniela", "Laura", "Antonia", "Juana", "Manuela",
-    "Alejandra", "Veronica", "Carolina", "Patricia", "Sandra", "Monica", "Claudia", "Adriana", "Marcela"
+    "Alejandra", "Veronica", "Carolina", "Patricia", "Sandra", "Monica", "Claudia", "Adriana", "Marcela", "Paulina"
 };
 
 const std::vector<std::string> APELLIDOS = {
-    "Rodriguez", "Gomez", "Perez", "Lopez", "Martinez", "Garcia", "Sanchez", "Ramirez", "Torres", "Diaz",
-    "Vargas", "Moreno", "Rojas", "Hernandez", "Jimenez", "Gonzalez", "Gutierrez", "Castro", "Ortiz", "Suarez",
+    "Rodriguez", "Gomez", "Perez", "Lopez", "Martinez", "Garcia", "Sanchez", "Ramirez", "Torres", "Diaz","Vargas", "Moreno", "Rojas", 
+    "Hernandez", "Jimenez", "Gonzalez", "Gutierrez", "Castro", "Ortiz", "Suarez",
     "Rubio", "Marin", "Silva", "Soto", "Mendoza", "Morales", "Reyes", "Castillo", "Romero", "Herrera",
-    "Medina", "Aguilar", "Cardona", "Paredes", "Salazar", "Montoya", "Rios", "Valencia", "Osorio", "Franco",
-    "Munoz", "Navarro", "Correa", "Delgado", "Pena", "Campos", "Vega", "Maldonado", "Cardenas", "Guerrero",
+    "Medina", "Aguilar", "Cardona", "Paredes", "Salazar", "Montoya", "Rios", "Valencia", "Osorio", "Franco","Munoz", "Navarro", "Correa", 
+    "Delgado", "Pena", "Campos", "Vega", "Maldonado", "Cardenas", "Guerrero",
     "Acosta", "Arias", "Benitez", "Cabrera", "Duque", "Estrada", "Figueroa", "Giraldo", "Henao", "Ibarra",
     "Jaramillo", "Lara", "Nieto", "Ochoa", "Pardo", "Quintero", "Rincon", "Serrano", "Trujillo", "Uribe"
 };
@@ -43,38 +42,34 @@ const std::vector<std::string> CIUDADES = {
     "Bogota", "Medellin", "Cali", "Barranquilla", "Cartagena", "Cucuta", "Bucaramanga", "Pereira", "Santa Marta",
     "Ibague", "Manizales", "Villavicencio", "Pasto", "Monteria", "Neiva", "Armenia", "Valledupar", "Popayan",
     "Sincelejo", "Tunja", "Riohacha", "Florencia", "Yopal", "Quibdo", "Mocoa", "Leticia", "Arauca",
-    "San Jose del Guaviare", "Inirida", "Mitu", "Puerto Carreno",
+    "San Jose del Guaviare", "Inirida", "Mitu", "Puerto Carreno","Marinilla","La ceja"
     "Soacha", "Bello", "Soledad", "Itagui", "Envigado", "Palmira", "Buenaventura", "Tulua", "Dosquebradas",
     "Giron", "Floridablanca", "Barrancabermeja", "Rionegro", "Zipaquira", "Fusagasuga", "Chia", "Apartado",
     "Turbo", "Ocana", "Maicao", "Pitalito", "Duitama", "Sogamoso", "Facatativa", "Magangue"
 };
 
-// --- Motor de generación de números aleatorios ---
-// Se inicializa una sola vez para mayor eficiencia y mejor aleatoriedad.
-// Se usa el tiempo actual como "semilla" para que cada ejecución sea diferente.
+// --- generación de los números aleatorios ---
+// Se usa el tiempo actual como la "semilla" para que cada ejecución sea diferente
 std::mt19937 generador(std::chrono::steady_clock::now().time_since_epoch().count());
-
-
-// Genera un número entero en un rango [min, max]
+// Genera un número entero en un rango minimo y maximo
 int generarEnteroAleatorio(int min, int max) {
     std::uniform_int_distribution<int> distribucion(min, max);
     return distribucion(generador);
 }
 
-// Genera un número largo en un rango [min, max]
+// Genera un número largo en un rango minimo y maximo
 long long generarLongAleatorio(long long min, long long max) {
     std::uniform_int_distribution<long long> distribucion(min, max);
     return distribucion(generador);
 }
-
-// Genera un nombre completo combinando un nombre y dos apellidos
+// Genera un nombre completo combinando un nombre y dos apellidos de la lista
 std::string generarNombreCompleto() {
     return NOMBRES[generarEnteroAleatorio(0, NOMBRES.size() - 1)] + " " +
            APELLIDOS[generarEnteroAleatorio(0, APELLIDOS.size() - 1)] + " " +
            APELLIDOS[generarEnteroAleatorio(0, APELLIDOS.size() - 1)];
 }
 
-// Genera una fecha de nacimiento en formato "YYYY-MM-DD"
+// Genera una fecha de nacimiento en formato año,mes,dia
 std::string generarFechaNacimiento() {
     int anio = generarEnteroAleatorio(1945, 2005);
     int mes = generarEnteroAleatorio(1, 12);
@@ -122,11 +117,11 @@ int main(int argc, char* argv[]) {
         reg.nombreCompleto = generarNombreCompleto();
         reg.fechaNacimiento = generarFechaNacimiento();
         reg.ciudadResidencia = CIUDADES[generarEnteroAleatorio(0, CIUDADES.size() - 1)];
-        reg.patrimonio = generarLongAleatorio(5000000, 5000000000); // Patrimonio entre 5 millones y 5 mil millones
+        reg.patrimonio = generarLongAleatorio(2000000, 5000000000); // Patrimonio entre 2 millones y 5 mil millones
         reg.deudas = generarLongAleatorio(0, reg.patrimonio / 2); // Deudas hasta la mitad del patrimonio
         reg.grupoDeclaracion = calcularGrupoDeclaracion(reg.documentoIdentidad);
 
-        // Escribir el registro en el archivo, separando los campos con comas
+        // Escribe el registro en el archivo, separando los campos con comas
         archivoSalida << reg.nombreCompleto << ","
                       << reg.fechaNacimiento << ","
                       << reg.ciudadResidencia << ","
@@ -135,13 +130,11 @@ int main(int argc, char* argv[]) {
                       << reg.documentoIdentidad << ","
                       << reg.grupoDeclaracion << "\n";
 
-        // Imprimir un indicador de progreso cada 20%
+        // imprime el indicador de progreso de los registros
         if ((i + 1) % (numRegistros / 20) == 0) {
             std::cout << "Progreso: " << (100 * (i + 1) / numRegistros) << "% completado." << std::endl;
         }
     }
-
-    // Cerrar el archivo
     archivoSalida.close();
 
     std::cout << "Los datos fueron generados exitosamente." << std::endl;

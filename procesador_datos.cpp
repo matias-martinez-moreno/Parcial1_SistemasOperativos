@@ -8,11 +8,11 @@ std::vector<PersonaCpp> cargarDatos(const std::string& nombreArchivo) {
     std::vector<PersonaCpp> personas;
     std::ifstream archivo(nombreArchivo);
     if (!archivo.is_open()) {
-        std::cerr << "Error: No se pudo abrir el archivo " << nombreArchivo << std::endl;
+        std::cerr << "Error: No se pudo abrir  " << nombreArchivo << std::endl;
         return personas;
     }
     std::string linea;
-    std::getline(archivo, linea); // Ignorar la cabecera
+    std::getline(archivo, linea); 
     while (std::getline(archivo, linea)) {
         std::stringstream ss(linea);
         std::string campo;
@@ -31,7 +31,6 @@ std::vector<PersonaCpp> cargarDatos(const std::string& nombreArchivo) {
                 p.documentoIdentidad = std::stoi(campos[5]);
                 p.grupoDeclaracion = campos[6][0];
             } catch (const std::exception& e) {
-                // Ignorar líneas con errores de conversión
                 continue;
             }
             personas.push_back(p);
