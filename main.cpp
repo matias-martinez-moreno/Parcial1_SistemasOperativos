@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <iomanip> 
+#include <iomanip>
 #include "procesador_datos.h"
 #include "analizador_datos.h"
 #include "medidor_rendimiento.h"
@@ -11,7 +11,7 @@ void imprimirResultadosPorCiudad(const std::string& titulo, const std::map<std::
     std::cout << "\n--- " << titulo << " ---" << std::endl;
     int count = 0;
     for (auto const& [ciudad, persona] : resultados) {
-        if(count++ >= 5) break; // Imprimir solo las 5 primeras para no saturar la consola
+        if(count++ >= 5) break;
         std::cout << ciudad << ": " << persona.nombreCompleto << std::endl;
     }
 }
@@ -67,8 +67,10 @@ int main() {
 
     std::cout << "\n[Paso 3: Realizando Análisis Adicionales]" << std::endl;
     Temporizador timer_adicional;
-    encontrarCiudadesConMayorPatrimonioPromedio(personas);
-    calcularPorcentajeMayores80PorGrupo(personas);
+    // --- LLAMADA A LAS NUEVAS FUNCIONES ---
+    calcularPatrimonioTotalPorGrupo(personas);
+    encontrarCiudadesConMasDeclarantes(personas);
+    calcularEdadPromedioPorGrupo(personas);
     timer_adicional.detener();
 
     std::cout << "\n[Paso 4: Comparaciones Técnicas de Rendimiento]" << std::endl;
@@ -81,36 +83,29 @@ int main() {
 
     // Comparación Valores vs Apuntadores (Referencias)
     std::cout << "\n--- Comparación Valores vs. Apuntadores (Referencias) ---" << std::endl;
-    // Usaremos un número menor de iteraciones para que la prueba sea rápida,
-    // pero la diferencia seguirá siendo clara.
     const int N_ITERACIONES = 5000000;
     
-    // Medir tiempo por VALOR
     Temporizador timer_valor;
     for(int i=0; i<N_ITERACIONES; ++i) {
         procesarPorValor(personas[i % personas.size()]);
     }
     auto fin_valor = std::chrono::high_resolution_clock::now();
     
-    // Medir tiempo por REFERENCIA
     Temporizador timer_referencia;
     for(int i=0; i<N_ITERACIONES; ++i) {
         procesarPorReferencia(personas[i % personas.size()]);
     }
     auto fin_referencia = std::chrono::high_resolution_clock::now();
 
-    // Calcular duraciones
     std::chrono::duration<double> duracion_valor = fin_valor - timer_valor.getInicio();
     std::chrono::duration<double> duracion_referencia = fin_referencia - timer_referencia.getInicio();
 
-    // Imprimir resultados
     std::cout << "Procesando " << N_ITERACIONES << " registros por VALOR:" << std::endl;
     std::cout << "-> Tiempo de ejecución: " << duracion_valor.count() << " segundos." << std::endl;
     
     std::cout << "Procesando " << N_ITERACIONES << " registros por REFERENCIA:" << std::endl;
     std::cout << "-> Tiempo de ejecución: " << duracion_referencia.count() << " segundos." << std::endl;
 
-    // Calcular y mostrar la mejora porcentual
     if (duracion_valor.count() > 0 && duracion_referencia.count() > 0) {
         double mejora = (duracion_valor.count() / duracion_referencia.count());
         std::cout << "\nConclusión: Pasar por referencia fue " << std::fixed << std::setprecision(2) << mejora << " veces más rápido que por valor." << std::endl;

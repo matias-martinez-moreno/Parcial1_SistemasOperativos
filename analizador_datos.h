@@ -6,7 +6,7 @@
 #include <map>
 #include "persona_cpp.h"
 
-// Funciones para preguntas obligatorias
+// --- Funciones para preguntas obligatorias (Sin cambios) ---
 int calcularEdad(const std::string& fechaNacimiento);
 PersonaCpp encontrarPersonaMasLongeva(const std::vector<PersonaCpp>& personas);
 std::map<std::string, PersonaCpp> encontrarMasLongevaPorCiudad(const std::vector<PersonaCpp>& personas);
@@ -15,8 +15,9 @@ std::map<std::string, PersonaCpp> encontrarMasRicaPorCiudad(const std::vector<Pe
 std::map<char, PersonaCpp> encontrarMasRicaPorGrupo(const std::vector<PersonaCpp>& personas);
 void contarYValidarPorGrupo(const std::vector<PersonaCpp>& personas);
 
-// Funciones para preguntas adicionales
-void encontrarCiudadesConMayorPatrimonioPromedio(const std::vector<PersonaCpp>& personas);
-void calcularPorcentajeMayores80PorGrupo(const std::vector<PersonaCpp>& personas);
+// --- Funciones para NUEVAS preguntas adicionales ---
+void calcularPatrimonioTotalPorGrupo(const std::vector<PersonaCpp>& personas);
+void encontrarCiudadesConMasDeclarantes(const std::vector<PersonaCpp>& personas);
+void calcularEdadPromedioPorGrupo(const std::vector<PersonaCpp>& personas);
 
 #endif

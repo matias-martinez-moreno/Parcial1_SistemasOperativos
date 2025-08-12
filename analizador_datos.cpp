@@ -3,9 +3,10 @@
 #include <limits>
 #include <map>
 #include <algorithm>
+#include <iomanip> // Necesario para std::fixed y std::setprecision
 #include "analizador_datos.h"
 
-// --- Implementación de Funciones ---
+// --- Implementación de Funciones Obligatorias (Sin cambios) ---
 
 int calcularEdad(const std::string& fechaNacimiento) {
     if (fechaNacimiento.length() < 4) return 0;
@@ -35,7 +36,6 @@ std::map<std::string, PersonaCpp> encontrarMasLongevaPorCiudad(const std::vector
     std::map<std::string, int> maxEdadPorCiudad;
     for (const auto& p : personas) {
         int edadActual = calcularEdad(p.fechaNacimiento);
-        // Si la ciudad no existe en el mapa, maxEdadPorCiudad[p.ciudadResidencia] será 0 por defecto.
         if (edadActual > maxEdadPorCiudad[p.ciudadResidencia]) {
             maxEdadPorCiudad[p.ciudadResidencia] = edadActual;
             masLongevaPorCiudad[p.ciudadResidencia] = p;
@@ -63,7 +63,6 @@ std::map<std::string, PersonaCpp> encontrarMasRicaPorCiudad(const std::vector<Pe
     std::map<std::string, long long> maxPatrimonioPorCiudad;
      for (const auto& p : personas) {
         long long patrimonioNeto = p.patrimonio - p.deudas;
-        // Si la ciudad no existe, maxPatrimonioPorCiudad[p.ciudadResidencia] será 0 por defecto.
         if (patrimonioNeto > maxPatrimonioPorCiudad[p.ciudadResidencia]) {
             maxPatrimonioPorCiudad[p.ciudadResidencia] = patrimonioNeto;
             masRicaPorCiudad[p.ciudadResidencia] = p;
@@ -100,43 +99,55 @@ void contarYValidarPorGrupo(const std::vector<PersonaCpp>& personas) {
     for (auto const& [grupo, cantidad] : conteo) {
         std::cout << "Grupo " << grupo << ": " << cantidad << " personas." << std::endl;
     }
-    // La validación es 0 porque nuestro generador es perfecto, pero la lógica está aquí.
     std::cout << "Validaciones de grupo incorrectas: " << validacionesIncorrectas << std::endl;
 }
 
-void encontrarCiudadesConMayorPatrimonioPromedio(const std::vector<PersonaCpp>& personas) {
-    std::map<std::string, std::pair<long long, int>> datosPorCiudad;
+
+// --- Implementación de NUEVAS Preguntas Adicionales ---
+
+// Pregunta Adicional 1: Distribución de Riqueza por Grupo
+void calcularPatrimonioTotalPorGrupo(const std::vector<PersonaCpp>& personas) {
+    std::map<char, long long> patrimonioPorGrupo;
     for (const auto& p : personas) {
-        datosPorCiudad[p.ciudadResidencia].first += (p.patrimonio - p.deudas);
-        datosPorCiudad[p.ciudadResidencia].second++;
+        patrimonioPorGrupo[p.grupoDeclaracion] += (p.patrimonio - p.deudas);
     }
-    std::vector<std::pair<std::string, double>> promedios;
-    for (auto const& [ciudad, datos] : datosPorCiudad) {
-        if (datos.second > 0) {
-            promedios.push_back({ciudad, (double)datos.first / datos.second});
-        }
-    }
-    std::sort(promedios.begin(), promedios.end(), [](const auto& a, const auto& b) {
-        return a.second > b.second;
-    });
-    std::cout << "\n--- 5 Ciudades con Mayor Patrimonio Promedio ---" << std::endl;
-    for (int i = 0; i < 5 && i < promedios.size(); ++i) {
-        std::cout << i + 1 << ". " << promedios[i].first << ": $" << (long long)promedios[i].second << std::endl;
+    std::cout << "\n--- Patrimonio Neto Total por Grupo ---" << std::endl;
+    for (auto const& [grupo, patrimonioTotal] : patrimonioPorGrupo) {
+        std::cout << "Grupo " << grupo << ": $" << patrimonioTotal << std::endl;
     }
 }
 
-void calcularPorcentajeMayores80PorGrupo(const std::vector<PersonaCpp>& personas) {
-    std::map<char, int> totalPorGrupo;
-    std::map<char, int> mayores80PorGrupo;
+// Pregunta Adicional 2: Ciudades con Mayor Cantidad de Declarantes
+void encontrarCiudadesConMasDeclarantes(const std::vector<PersonaCpp>& personas) {
+    std::map<std::string, int> conteoPorCiudad;
     for (const auto& p : personas) {
-        totalPorGrupo[p.grupoDeclaracion]++;
-        if (calcularEdad(p.fechaNacimiento) >= 80) {
-            mayores80PorGrupo[p.grupoDeclaracion]++;
-        }
+        conteoPorCiudad[p.ciudadResidencia]++;
     }
-    std::cout << "\n--- Porcentaje de Personas > 80 años por Grupo ---" << std::endl;
-    for (auto const& [grupo, total] : totalPorGrupo) {
-        double porcentaje = (total > 0) ? (double)mayores80PorGrupo[grupo] * 100.0 / total : 0.0;
-        std::cout << "Grupo " << grupo << ": " << porcentaje << "%" << std::endl;
+    std::vector<std::pair<std::string, int>> conteoVector;
+    for (auto const& [ciudad, conteo] : conteoPorCiudad) {
+        conteoVector.push_back({ciudad, conteo});
+    }
+    std::sort(conteoVector.begin(), conteoVector.end(), [](const auto& a, const auto& b) {
+        return a.second > b.second;
+    });
+    std::cout << "\n--- 5 Ciudades con Mayor Número de Declarantes ---" << std::endl;
+    for (int i = 0; i < 5 && i < conteoVector.size(); ++i) {
+        std::cout << i + 1 << ". " << conteoVector[i].first << ": " << conteoVector[i].second << " personas" << std::endl;
+    }
+}
+
+// Pregunta Adicional 3: Análisis de Edad por Grupo
+void calcularEdadPromedioPorGrupo(const std::vector<PersonaCpp>& personas) {
+    std::map<char, std::pair<long long, int>> datosEdadPorGrupo; // Suma de edades y conteo
+    for (const auto& p : personas) {
+        datosEdadPorGrupo[p.grupoDeclaracion].first += calcularEdad(p.fechaNacimiento);
+        datosEdadPorGrupo[p.grupoDeclaracion].second++;
+    }
+    std::cout << "\n--- Edad Promedio por Grupo de Declaración ---" << std::endl;
+    for (auto const& [grupo, datos] : datosEdadPorGrupo) {
+        if (datos.second > 0) {
+            double edadPromedio = (double)datos.first / datos.second;
+            std::cout << "Grupo " << grupo << ": " << std::fixed << std::setprecision(2) << edadPromedio << " anios" << std::endl;
+        }
     }
 }
