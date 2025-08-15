@@ -2,8 +2,8 @@
 #include <fstream>      // Para escribir en archivos (file stream)
 #include <string>
 #include <vector>
-#include <random>       // Para la generación moderna de números aleatorios en C++
-#include <chrono>       // Para obtener una semilla única para el generador aleatorio
+#include <random>       // Para la generacion moderna de numeros aleatorios en C++
+#include <chrono>       // Para obtener una semilla unica para el generador aleatorio
 
 // --- Estructura para organizar un registro 
 struct Registro {
@@ -16,7 +16,7 @@ struct Registro {
     char grupoDeclaracion;
 };
 
-// --- Datos base para la generación aleatoria ---
+// --- Datos base para la generacion aleatoria ---
 const std::vector<std::string> NOMBRES = {
     "Santiago", "Sebastian", "Matias", "Nicolas", "Samuel", "Alejandro", "Mateo", "Diego", "Daniel", "Benjamin","Juan", "Jose", "David", "Gabriel", "Lucas", "Martin", "Tomas", "Jeronimo", "Emiliano", "Felipe","Nestor","Edison",
     "Joaquin", "Emmanuel", "Andres", "Simon", "Maximiliano", "Agustin", "Pablo", "Esteban", "Emilio", "Isaac",
@@ -48,16 +48,16 @@ const std::vector<std::string> CIUDADES = {
     "Turbo", "Ocana", "Maicao", "Pitalito", "Duitama", "Sogamoso", "Facatativa", "Magangue"
 };
 
-// --- generación de los números aleatorios ---
-// Se usa el tiempo actual como la "semilla" para que cada ejecución sea diferente
+// --- generacion de los numeros aleatorios ---
+// Se usa el tiempo actual como la "semilla" para que cada ejecucion sea diferente
 std::mt19937 generador(std::chrono::steady_clock::now().time_since_epoch().count());
-// Genera un número entero en un rango minimo y maximo
+// Genera un numero entero en un rango minimo y maximo
 int generarEnteroAleatorio(int min, int max) {
     std::uniform_int_distribution<int> distribucion(min, max);
     return distribucion(generador);
 }
 
-// Genera un número largo en un rango minimo y maximo
+// Genera un numero largo en un rango minimo y maximo
 long long generarLongAleatorio(long long min, long long max) {
     std::uniform_int_distribution<long long> distribucion(min, max);
     return distribucion(generador);
@@ -73,11 +73,11 @@ std::string generarNombreCompleto() {
 std::string generarFechaNacimiento() {
     int anio = generarEnteroAleatorio(1945, 2005);
     int mes = generarEnteroAleatorio(1, 12);
-    int dia = generarEnteroAleatorio(1, 28); // Se usa 28 para simplificar y evitar fechas inválidas
+    int dia = generarEnteroAleatorio(1, 28); // Se usa 28 para simplificar y evitar fechas invalidas
     return std::to_string(anio) + "-" + (mes < 10 ? "0" : "") + std::to_string(mes) + "-" + (dia < 10 ? "0" : "") + std::to_string(dia);
 }
 
-// Asigna el grupo de declaración según los dos últimos dígitos del documento
+// Asigna el grupo de declaracion segun los dos ultimos digitos del documento
 char calcularGrupoDeclaracion(int documento) {
     int ultimosDosDigitos = documento % 100;
     if (ultimosDosDigitos <= 39) return 'A';
@@ -85,15 +85,15 @@ char calcularGrupoDeclaracion(int documento) {
     return 'C';
 }
 
-// --- Función Principal ---
+// --- Funcion Principal ---
 int main(int argc, char* argv[]) {
-    // Verificación de los argumentos de entrada
+    // Verificacion de los argumentos de entrada
     if (argc != 3) {
         std::cerr << "Uso: " << argv[0] << " <numero_de_registros> <nombre_archivo_salida.csv>" << std::endl;
-        return 1; // Termina el programa con un código de error
+        return 1; // Termina el programa con un codigo de error
     }
 
-    // Conversión de los argumentos de entrada
+    // Conversion de los argumentos de entrada
     long long numRegistros = std::stoll(argv[1]);
     std::string nombreArchivo = argv[2];
 

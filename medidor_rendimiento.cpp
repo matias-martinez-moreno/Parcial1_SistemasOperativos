@@ -10,7 +10,7 @@ Temporizador::Temporizador() {
 void Temporizador::detener() {
     auto fin = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duracion = fin - inicio;
-    std::cout << "-> Tiempo de ejecución: " << duracion.count() << " segundos." << std::endl;
+    std::cout << "-> Tiempo de ejecucion: " << duracion.count() << " segundos." << std::endl;
 }
 
 long getUsoRAM() {
@@ -26,12 +26,12 @@ long getUsoRAM() {
     return memory_usage;
 }
 
-// Función que recibe una copia completa del objeto. Ineficiente.
+// Funcion que recibe una copia completa del objeto. Ineficiente.
 void procesarPorValor(PersonaCpp persona) {
     volatile int doc = persona.documentoIdentidad;
 }
 
-// Función que recibe solo una referencia (similar a un puntero). Muy eficiente.
+// Funcion que recibe solo una referencia (similar a un puntero). Muy eficiente.
 void procesarPorReferencia(const PersonaCpp& persona) {
     volatile int doc = persona.documentoIdentidad;
 }

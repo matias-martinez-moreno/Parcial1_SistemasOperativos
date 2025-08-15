@@ -14,10 +14,10 @@ public:
     std::chrono::time_point<std::chrono::high_resolution_clock> getInicio() const { return inicio; }
 };
 
-// Función para obtener el uso de memoria RAM del proceso actual (en KB)
+// Funcion para obtener el uso de memoria RAM del proceso actual (en KB)
 long getUsoRAM();
 
-// Funciones para la comparación de rendimiento
+// Funciones para la comparacion de rendimiento
 void procesarPorValor(PersonaCpp persona);
 void procesarPorReferencia(const PersonaCpp& persona);
 

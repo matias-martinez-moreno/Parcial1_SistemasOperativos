@@ -94,14 +94,14 @@ void contarYValidarPorGrupo(const std::vector<PersonaCpp>& personas) {
             validacionesIncorrectas++;
         }
     }
-    std::cout << "\n--- Conteo y Validación por Grupo de Declaración ---" << std::endl;
+    std::cout << "\n--- Conteo y Validacion por Grupo de Declaracion ---" << std::endl;
     for (auto const& [grupo, cantidad] : conteo) {
         std::cout << "Grupo " << grupo << ": " << cantidad << " personas." << std::endl;
     }
 }
-// --- Implementación de las tres preguntas Adicionales ---
+// --- Implementacion de las tres preguntas Adicionales ---
 
-// Pregunta 1: Distribución de Riqueza por Grupo
+// Pregunta 1: Distribucion de Riqueza por Grupo
 void calcularPatrimonioTotalPorGrupo(const std::vector<PersonaCpp>& personas) {
     std::map<char, long long> patrimonioPorGrupo;
     for (const auto& p : personas) {
@@ -126,20 +126,20 @@ void encontrarCiudadesConMasDeclarantes(const std::vector<PersonaCpp>& personas)
     std::sort(conteoVector.begin(), conteoVector.end(), [](const auto& a, const auto& b) {
         return a.second > b.second;
     });
-    std::cout << "\n--- 5 Ciudades con Mayor Número de Declarantes ---" << std::endl;
+    std::cout << "\n--- 5 Ciudades con Mayor Numero de Declarantes ---" << std::endl;
     for (int i = 0; i < 5 && i < conteoVector.size(); ++i) {
         std::cout << i + 1 << ". " << conteoVector[i].first << ": " << conteoVector[i].second << " personas" << std::endl;
     }
 }
 
-// Pregunta 3: Análisis de Edad por Grupo
+// Pregunta 3: Analisis de Edad por Grupo
 void calcularEdadPromedioPorGrupo(const std::vector<PersonaCpp>& personas) {
     std::map<char, std::pair<long long, int>> datosEdadPorGrupo; // Suma de edades y conteo
     for (const auto& p : personas) {
         datosEdadPorGrupo[p.grupoDeclaracion].first += calcularEdad(p.fechaNacimiento);
         datosEdadPorGrupo[p.grupoDeclaracion].second++;
     }
-    std::cout << "\n--- Edad Promedio por Grupo de Declaración ---" << std::endl;
+    std::cout << "\n--- Edad Promedio por Grupo de Declaracion ---" << std::endl;
     for (auto const& [grupo, datos] : datosEdadPorGrupo) {
         if (datos.second > 0) {
             double edadPromedio = (double)datos.first / datos.second;

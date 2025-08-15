@@ -1,6 +1,5 @@
 #ifndef PERSONA_CPP_H
 #define PERSONA_CPP_H
-
 #include <string>
 
 class PersonaCpp {
@@ -13,5 +12,4 @@ public:
     int documentoIdentidad;
     char grupoDeclaracion;
 };
-
 #endif

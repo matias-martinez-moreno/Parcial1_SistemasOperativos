@@ -2,7 +2,7 @@
 #define PERSONA_C_H
 
 // Estructura estilo C para un registro de persona.
-// Se usa para la comparación de eficiencia, aunque el programa principal usará la clase C++.
+// Se usa para la comparacion de eficiencia, aunque el programa principal usara la clase C++.
 typedef struct {
     char nombreCompleto[150];
     char fechaNacimiento[11]; 
