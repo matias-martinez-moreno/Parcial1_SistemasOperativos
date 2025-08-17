@@ -4,7 +4,11 @@
 #include <map>
 #include <algorithm>
 #include <iomanip> // se usa para std::fixed y std::setprecision
+#include <cstring>
 #include "analizador_datos.h"
+#include "persona_c.h"
+#include <chrono>
+#include <string>
 
 // --- implementacion de las funciones obligatorias ---
 
@@ -30,6 +34,30 @@ PersonaCpp encontrarPersonaMasLongeva(const std::vector<PersonaCpp>& personas) {
     }
     return masLongeva;
 }
+
+// funcion usando struct en C
+PersonaC encontrarPersonaMasLongevaC(PersonaC personas[], int tamaño) {
+    if (tamaño == 0) return PersonaC{};
+    
+    PersonaC masLongeva = personas[0];
+    int maxEdad = 0;
+    
+    for (int i = 0; i < tamaño; i++) {
+        // Calcular edad (suponiendo formato YYYY-MM-DD)
+        int año = (personas[i].fechaNacimiento[0] - '0') * 1000 + 
+                  (personas[i].fechaNacimiento[1] - '0') * 100 +
+                  (personas[i].fechaNacimiento[2] - '0') * 10 + 
+                  (personas[i].fechaNacimiento[3] - '0');
+        int edad = 2025 - año;
+        
+        if (edad > maxEdad) {
+            maxEdad = edad;
+            masLongeva = personas[i];
+        }
+    }
+    return masLongeva;
+}
+
 std::map<std::string, PersonaCpp> encontrarMasLongevaPorCiudad(const std::vector<PersonaCpp>& personas) {
     std::map<std::string, PersonaCpp> masLongevaPorCiudad;
     std::map<std::string, int> maxEdadPorCiudad;
@@ -42,6 +70,7 @@ std::map<std::string, PersonaCpp> encontrarMasLongevaPorCiudad(const std::vector
     }
     return masLongevaPorCiudad;
 }
+
 
 PersonaCpp encontrarPersonaMayorPatrimonio(const std::vector<PersonaCpp>& personas) {
     if (personas.empty()) return PersonaCpp();
@@ -146,4 +175,42 @@ void calcularEdadPromedioPorGrupo(const std::vector<PersonaCpp>& personas) {
             std::cout << "Grupo " << grupo << ": " << std::fixed << std::setprecision(2) << edadPromedio << " anios" << std::endl;
         }
     }
+}
+
+void medirTiempoBusquedaLongeva(const std::vector<PersonaCpp>& personas) {
+    std::cout << "\n--- Midiendo busqueda con PersonaCpp ---" << std::endl;
+    
+    // Llamada de calentamiento
+    encontrarPersonaMasLongeva(personas);
+    
+    // Medicion real
+    auto inicio = std::chrono::high_resolution_clock::now();
+    PersonaCpp resultado = encontrarPersonaMasLongeva(personas);
+    auto fin = std::chrono::high_resolution_clock::now();
+    
+    std::chrono::duration<double> duracion = fin - inicio;
+    
+    std::cout << "Persona mas longeva encontrada:\n";
+    std::cout << "Nombre: " << resultado.nombreCompleto << "\n";
+    std::cout << "Tiempo de ejecucion: " << duracion.count() << " segundos\n";
+    std::cout << "Para " << personas.size() << " registros\n";
+}
+
+void medirTiempoBusquedaLongevaC(PersonaC personas[], int tamaño) {
+    std::cout << "\n--- Midiendo busqueda con PersonaC ---" << std::endl;
+    
+    // Llamada de calentamiento
+    encontrarPersonaMasLongevaC(personas, tamaño);
+    
+    // Medicion real
+    auto inicio = std::chrono::high_resolution_clock::now();
+    PersonaC resultado = encontrarPersonaMasLongevaC(personas, tamaño);
+    auto fin = std::chrono::high_resolution_clock::now();
+    
+    std::chrono::duration<double> duracion = fin - inicio;
+    
+    std::cout << "Persona mas longeva encontrada:\n";
+    std::cout << "Nombre: " << resultado.nombreCompleto << "\n";
+    std::cout << "Tiempo de ejecucion: " << duracion.count() << " segundos\n";
+    std::cout << "Para " << tamaño << " registros\n";
 }

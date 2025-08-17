@@ -35,3 +35,4 @@ void procesarPorValor(PersonaCpp persona) {
 void procesarPorReferencia(const PersonaCpp& persona) {
     volatile int doc = persona.documentoIdentidad;
 }
+

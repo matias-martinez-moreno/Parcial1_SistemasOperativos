@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include "procesador_datos.h"
+
 std::vector<PersonaCpp> cargarDatos(const std::string& nombreArchivo) {
     std::vector<PersonaCpp> personas;
     std::ifstream archivo(nombreArchivo);
@@ -21,8 +22,8 @@ std::vector<PersonaCpp> cargarDatos(const std::string& nombreArchivo) {
         }
         if (campos.size() == 7) {
             PersonaCpp p;
-            p.nombreCompleto =campos[0];
-            p.fechaNacimiento =campos[1];
+            p.nombreCompleto = campos[0];
+            p.fechaNacimiento = campos[1];
             p.ciudadResidencia = campos[2];
             try {
                 p.patrimonio = std::stoll(campos[3]);

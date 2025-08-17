@@ -4,11 +4,11 @@
 // Estructura estilo C para un registro de persona.
 // Se usa para la comparacion de eficiencia, aunque el programa principal usara la clase C++.
 typedef struct {
-    char nombreCompleto[150];
+    char nombreCompleto[70];
     char fechaNacimiento[11]; 
     char ciudadResidencia[50];
     long long patrimonio;
-    long long deudas;
+    long long deudas; 
     int documentoIdentidad;
     char grupoDeclaracion;
 } PersonaC;

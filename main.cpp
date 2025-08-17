@@ -2,6 +2,7 @@
 #include <map>
 #include <iostream>
 #include <iomanip>
+#include <cstring>             
 #include "procesador_datos.h"
 #include "analizador_datos.h"
 #include "medidor_rendimiento.h"
@@ -81,6 +82,25 @@ int main() {
     std::cout << "sizeof(PersonaC): " << sizeof(PersonaC) << " bytes" << std::endl;
     std::cout << "sizeof(PersonaCpp): " << sizeof(PersonaCpp) << " bytes" << std::endl;
     std::cout << "Nota: La diferencia se debe a la gestion de memoria de std::string en la clase. El struct usa memoria fija en la pila, mientras que la clase usa memoria dinamica para los strings." << std::endl;
+    
+        // Comparacion de rendimiento de busqueda
+    std::cout << "\n--- Comparacion de Rendimiento de Busqueda ---" << std::endl;
+    medirTiempoBusquedaLongeva(personas);
+
+    // Crear array de PersonaC 
+    PersonaC* personasC = new PersonaC[personas.size()];
+    for (size_t i = 0; i < personas.size(); i++) {
+        strcpy(personasC[i].nombreCompleto, personas[i].nombreCompleto.c_str());
+        strcpy(personasC[i].fechaNacimiento, personas[i].fechaNacimiento.c_str());
+        strcpy(personasC[i].ciudadResidencia, personas[i].ciudadResidencia.c_str());
+        personasC[i].patrimonio = personas[i].patrimonio;
+        personasC[i].deudas = personas[i].deudas;
+        personasC[i].documentoIdentidad = personas[i].documentoIdentidad;
+        personasC[i].grupoDeclaracion = personas[i].grupoDeclaracion;
+    }
+
+    medirTiempoBusquedaLongevaC(personasC, personas.size());
+    delete[] personasC;
 
     // Comparacion Valores vs Apuntadores (Referencias)
     std::cout << "\n--- Comparacion Valores vs. Apuntadores (Referencias) ---" << std::endl;
@@ -112,6 +132,7 @@ int main() {
         double mejora = (duracion_valor.count() / duracion_referencia.count());
         std::cout << "\nConclusion: Pasar por referencia fue " << std::fixed << std::setprecision(2) << mejora << " veces mas rapido que por valor." << std::endl;
     }
+
 
     std::cout << "\n--- FIN DEL PROGRAMA ---" << std::endl;
 

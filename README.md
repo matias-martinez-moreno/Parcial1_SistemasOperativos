@@ -1,9 +1,9 @@
-* Matías Martínez
-* Sofía Gallo
+* Matias Martinez
+* Sofia Gallo
 * Juan Manuel Gallo
 ## IMPORTANTE PARA EJECUTAR
 
-Asegúrate de tener un compilador de C++ (`g++`) instalado.
+Asegurate de tener un compilador de C++ (`g++`) instalado.
 
 ### 1. Generar el Archivo de Datos
 
@@ -32,4 +32,4 @@ g++ main.cpp procesador_datos.cpp analizador_datos.cpp medidor_rendimiento.cpp -
 ```bash
 ./parcial1
 ```
-El programa leerá el archivo `datos.csv` y mostrará todos los resultados del análisis en la terminal.
+El programa leera el archivo `datos.csv` y mostrara todos los resultados del analisis en la terminal.

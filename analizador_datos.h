@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include "persona_c.h"
 #include "persona_cpp.h"
 
 // --- Funciones para las preguntas obligatorias ---
@@ -18,5 +19,9 @@ void contarYValidarPorGrupo(const std::vector<PersonaCpp>& personas);
 void calcularPatrimonioTotalPorGrupo(const std::vector<PersonaCpp>& personas);
 void encontrarCiudadesConMasDeclarantes(const std::vector<PersonaCpp>& personas);
 void calcularEdadPromedioPorGrupo(const std::vector<PersonaCpp>& personas);
+
+// --- Funciones de comparacion de rendimiento --- 
+void medirTiempoBusquedaLongeva(const std::vector<PersonaCpp>& personas);
+void medirTiempoBusquedaLongevaC(PersonaC personas[], int tamaño);
 
 #endif
